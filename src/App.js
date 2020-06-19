@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from "react";
 import Form from './Components/Form'
+import formSchema from '../src/validation/formSchema'
+import * as Yup from 'yup'
 
 const initialFormValues = {
+  name: '',
   size: 'Large',
   sauce: 'Red',
   toppings: {
     Pepperoni: false,
     Mushroom: false,
     Garlic: false,
+    Anchovies: false,
   },
   instructions: '',
 }
@@ -57,6 +61,12 @@ const App = () => {
       .filter(toppingName => (formValues.toppings[toppingName] === true))
     }
   }
+
+  useEffect(()=> {
+    formSchema.isValid(formValues).then(valid => {
+      setDisabled(!valid)
+    })
+  }, [formValues])
 
   return (
     <div>

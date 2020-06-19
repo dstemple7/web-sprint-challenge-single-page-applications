@@ -16,6 +16,15 @@ export default function Form(props){
         <h2>Order a pizza</h2>
         
         <button disabled={disabled}>Place order</button>
+        <h4>What's do people call you?</h4>
+        <label>&nbsp;
+        <input
+          value={values.name}
+          onChange={onInputChange}
+          name='name'
+          type='text'
+        />
+      </label>
 
         <div>
           <div>{errors.size}</div>
@@ -96,6 +105,15 @@ export default function Form(props){
             type='checkbox'
             onChange={onCheckboxChange}
             checked={values.toppings.Garlic}
+          />
+        </label>
+
+        <label>Anchovies
+          <input
+            name='Anchovies'
+            type='checkbox'
+            onChange={onCheckboxChange}
+            checked={values.toppings.Anchovies}
           />
         </label>
 
