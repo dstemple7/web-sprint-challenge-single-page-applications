@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import Form from './Components/Form'
 import formSchema from '../src/validation/formSchema'
 import * as Yup from 'yup'
+import axios from 'axios'
+
 
 const initialFormValues = {
   name: '',
@@ -28,8 +30,32 @@ const App = () => {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initalDisabled)
 
+  const postNewPizza = newPizza => {
+    axios.post('http://localhost:3000/orders', newPizza)
+    .finally(() => {
+      setFormValues(initialFormValues)
+      }
+    )
+  }
+
   const onInputChange = evt => {
     const {name, value} = evt.target
+
+    Yup
+    .reach(formSchema, name)
+    .validate(value)
+    .then(() => {
+      setFormErrors({
+        ...formErrors,
+        [name]: ""
+      })
+    })
+    .catch(err => {
+      setFormErrors({
+        ...formErrors,
+        [name]: err.errors[0]
+      })
+    })
   
     setFormValues({
       ...formValues,
@@ -55,11 +81,14 @@ const App = () => {
     evt.preventDefault()
 
     const newPizza = {
+      name: formValues.name.trim(),
       size: formValues.size.trim(),
       sauce: formValues.sauce.trim(),
       toppings: Object.keys(formValues.toppings)
-      .filter(toppingName => (formValues.toppings[toppingName] === true))
+      .filter(toppingName => (formValues.toppings[toppingName] === true)),
+      instructions: formValues.instructions.trim(),
     }
+    postNewPizza(newPizza)
   }
 
   useEffect(()=> {
