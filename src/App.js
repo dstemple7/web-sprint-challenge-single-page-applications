@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Route, Link} from 'react-router-dom'
 import Form from './Components/Form'
 import formSchema from '../src/validation/formSchema'
 import * as Yup from 'yup'
@@ -31,7 +32,10 @@ const App = () => {
   const [disabled, setDisabled] = useState(initalDisabled)
 
   const postNewPizza = newPizza => {
-    axios.post('http://localhost:3000/orders', newPizza)
+    axios.post('https://reqres.in/api/users?page=2', newPizza)
+    .then(response => {
+      console.log(response)
+    })
     .finally(() => {
       setFormValues(initialFormValues)
       }
@@ -98,21 +102,25 @@ const App = () => {
   }, [formValues])
 
   return (
-    <div>
+    <div id="appBody">
+      <div  >
+      <Route exact path ='/'>
+        <h1>Lambda Eats</h1>
+        <p>Your favorite food, delivered while coding</p>
+        <button><Link to={`./Pizza`}>Pizza?</Link></button>
+      </Route>
       
-      <h1>Lambda Eats</h1>
-      <p>Your favorite food, delivered while coding</p>
-      <button>Pizza?</button>
-      
-      <Form 
-        values={formValues}
-        onInputChange={onInputChange}
-        onCheckboxChange={onCheckboxChange}
-        onSubmit={onSubmit}
-        disabled={disabled}
-        errors={formErrors}
-      />
-
+      <Route path ='/Pizza'>
+        <Form 
+          values={formValues}
+          onInputChange={onInputChange}
+          onCheckboxChange={onCheckboxChange}
+          onSubmit={onSubmit}
+          disabled={disabled}
+          errors={formErrors}
+        />
+      </Route>
+      </div>
     </div>
   );
 };

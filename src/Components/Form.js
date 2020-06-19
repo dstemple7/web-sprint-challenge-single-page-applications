@@ -15,8 +15,8 @@ export default function Form(props){
       <div>
         <h2>Order a pizza</h2>
         
-        <button disabled={disabled}>Place order</button>
-        <h4>What's do people call you?</h4>
+        <button class="submitBtn" disabled={disabled}>Add to Order</button>
+        <h4 class="nameInput">What's do people call you?</h4>
         <label>&nbsp;
         <input
           value={values.name}
@@ -49,7 +49,7 @@ export default function Form(props){
       </label>
 
       <h5>Choice of Sauce</h5>
-      <label>Red &nbsp;
+      <label>Red
         <input
           checked={values.sauce === 'Red'}
           value='Red'
@@ -58,8 +58,11 @@ export default function Form(props){
           type='radio'
         />
       </label>
+      
+      &nbsp;
+      &nbsp;
 
-      <label>White &nbsp;
+      <label>White
         <input
           checked={values.sauce === 'White'}
           value='White'
@@ -69,7 +72,10 @@ export default function Form(props){
         />
       </label>
 
-      <label>No Sauce &nbsp;
+      &nbsp;
+      &nbsp;
+
+      <label>No Sauce 
         <input
           checked={values.sauce === 'No Sauce'}
           value='No Sauce'
@@ -78,6 +84,9 @@ export default function Form(props){
           type='radio'
         />
       </label>
+
+      &nbsp;
+      &nbsp;
 
       <h4>Add Toppings</h4>
         
@@ -90,6 +99,9 @@ export default function Form(props){
           />
         </label>
 
+        &nbsp;
+        &nbsp;
+
         <label>Mushrooms
           <input
             name='Mushrooms'
@@ -98,6 +110,9 @@ export default function Form(props){
             checked={values.toppings.Mushrooms}
           />
         </label>
+
+        &nbsp;
+        &nbsp;
 
         <label>Garlic
           <input
@@ -108,6 +123,9 @@ export default function Form(props){
           />
         </label>
 
+        &nbsp;
+        &nbsp;
+
         <label>Anchovies
           <input
             name='Anchovies'
@@ -117,7 +135,9 @@ export default function Form(props){
           />
         </label>
 
-      <br></br>
+        &nbsp;
+        &nbsp;
+
       <br></br>
 
       <h4>Customize your Pie</h4>
@@ -131,7 +151,13 @@ export default function Form(props){
       </label>
 
     </div>
+    
+    <br></br>
+    <br></br>
 
+    <a href='/'>Back Home</a>
+    
     </form>
+    
   )
 }
