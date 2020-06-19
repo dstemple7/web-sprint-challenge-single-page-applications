@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import Form from './Components/Form'
-import { initial } from "cypress/types/lodash";
 
 const initialFormValues = {
   size: 'Large',
@@ -25,13 +24,57 @@ const App = () => {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initalDisabled)
 
+  const onInputChange = evt => {
+    const {name, value} = evt.target
+  
+    setFormValues({
+      ...formValues,
+      [name]: value
+    })
+  }
+
+  const onCheckboxChange = evt => {
+    
+    const {name, checked} = evt.target
+
+    setFormValues({
+      ...formValues,
+      toppings: {
+        ...formValues.toppings,
+        [name]: checked,
+      }
+    })
+  }
+
+  const onSubmit = evt => {
+    
+    evt.preventDefault()
+
+    const newPizza = {
+      size: formValues.size.trim(),
+      sauce: formValues.sauce.trim(),
+      toppings: Object.keys(formValues.toppings)
+      .filter(toppingName => (formValues.toppings[toppingName] === true))
+    }
+  }
+
   return (
-    <>
+    <div>
+      
       <h1>Lambda Eats</h1>
       <p>Your favorite food, delivered while coding</p>
       <button>Pizza?</button>
-      <Form />
-    </>
+      
+      <Form 
+        values={formValues}
+        onInputChange={onInputChange}
+        onCheckboxChange={onCheckboxChange}
+        onSubmit={onSubmit}
+        disabled={disabled}
+        errors={formErrors}
+      />
+
+    </div>
   );
 };
 export default App;
