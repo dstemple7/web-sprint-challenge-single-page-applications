@@ -20,8 +20,6 @@ export default function Form(props){
         <div>
           <div>{errors.size}</div>
           <div>{errors.sauce}</div>
-          <div>{errors.toppings}</div>
-          <div>{errors.substitute}</div>
         </div>
       </div>
 
